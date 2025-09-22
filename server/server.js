@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3001
 
 app.use(
   cors({
-    origin: ['http://localhost:5173', 'https://yourdomain.com'],
+    origin: ['http://localhost:5173', 'https://title-generator-backend-production.up.railway.app'],
     credentials: true,
   }),
 )
