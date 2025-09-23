@@ -139,12 +139,13 @@ const generateTitles = async () => {
   isLoading.value = true
   error.value = null
   titles.value = []
-  const API_BASE =
-    import.meta.env.MODE === 'development'
-      ? 'http://localhost:3001'
-      : 'https://title-generator-backend-production.up.railway.app' // ✅ 线上地址！
+  // const API_BASE =
+  //   import.meta.env.MODE === 'development'
+  //     ? 'http://localhost:3001'
+  //     : 'https://title-generator-backend-production.up.railway.app' // ✅ 线上地址！
+  const API_BASE = 'https://title-generator-backend-production-23e8.up.railway.app'
   try {
-    const response = await fetch('https://title-generator-backend-production.up.railway.app', {
+    const response = await fetch(`${API_BASE}/api/generate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
