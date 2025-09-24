@@ -110,7 +110,7 @@ interface GenerateResponse {
 
 // 响应式数据
 const topic = ref('')
-const selectedStyle = ref('爆款小红书')
+const selectedStyle = ref<string>('爆款小红书')
 const titles = ref<string[]>([])
 const isLoading = ref(false)
 const error = ref<string | null>(null)
@@ -213,8 +213,10 @@ const generateTitles = async () => {
   }
 
   // ✅ 构建 Prompt 的函数
-  const buildPrompt = (promptText: any, style = '爆款小红书') => {
-    const template = STYLE_PROMPTS[style] || STYLE_PROMPTS['爆款小红书']
+  // 修改 buildPrompt 函数签名，使用联合类型限定 style 参数
+  const buildPrompt = (promptText: string, style: string) => {
+    const template =
+      STYLE_PROMPTS[style as keyof typeof STYLE_PROMPTS] || STYLE_PROMPTS['爆款小红书']
     return template.replace('{主题}', promptText.trim())
   }
 
@@ -261,6 +263,7 @@ const copySingle = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text)
     showToast(`✅ 已复制`, 'success')
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     showToast('❌ 复制失败，请手动选择复制', 'error')
   }
@@ -275,6 +278,7 @@ const copyAll = async () => {
   try {
     await navigator.clipboard.writeText(titles.value.join('\n\n'))
     showToast('✅ 已复制全部标题！', 'success')
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (err) {
     showToast('❌ 复制失败，请手动选择复制', 'error')
   }
